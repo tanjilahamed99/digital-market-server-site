@@ -57,7 +57,7 @@ async function run() {
         })
 
         app.put('/shirt/:id', async (req, res) => {
-            const id = req.params.id
+            const id = req.params.idP
             const update = req.body
             const filter = { _id: new ObjectId(id) }
             const updateDoc = {
