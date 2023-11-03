@@ -36,6 +36,7 @@ async function run() {
 
         const database = client.db("digitalDB");
         const shirtCollection = database.collection("shirt");
+        const customerProductsCollection = database.collection("customerProducts");
 
         app.post('/shirt', async (req, res) => {
             const newProduct = req.body
@@ -79,6 +80,29 @@ async function run() {
             const result = await shirtCollection.deleteOne(query)
             res.send(result)
         })
+
+
+        // customer products
+        app.post('/myproducts', async (req, res) => {
+            const newProducts = req.body
+            const result = await customerProductsCollection.insertOne(newProducts)
+            res.send(result)
+        })
+
+        app.get('/myproducts', async (req, res) => {
+            const userEmail = req.query.email
+            const query = { email: userEmail }
+            const result = await customerProductsCollection.find(query).toArray()
+            res.send(result)
+        })
+
+        app.delete('/myproducts/:id', async (req, res) => {
+            const id = req.params.id
+            const query = { _id: new ObjectId(id) }
+            const result = await customerProductsCollection.deleteOne(query)
+            res.send(result)
+        })
+
 
 
         // Send a ping to confirm a successful connection
