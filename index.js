@@ -60,6 +60,7 @@ async function run() {
 
         const database = client.db("digitalDB");
         const shirtCollection = database.collection("shirt");
+        const clothCollection = database.collection("cloth");
         const customerProductsCollection = database.collection("customerProducts");
 
 
@@ -82,6 +83,20 @@ async function run() {
         })
 
 
+        // cloth related
+        app.get('/cloth', async (req, res) => {
+
+            const page = Number(req.query.page)
+            const limit = Number(req.query.limit)
+
+            const result = await clothCollection.find().skip(page * limit).limit(limit).toArray()
+            res.send(result)
+        })
+
+        app.get('/clothData', async (req, res) => {
+            const clothData = await clothCollection.estimatedDocumentCount()
+            res.send({ count: clothData })
+        })
 
 
         app.post('/shirt', async (req, res) => {
@@ -140,7 +155,7 @@ async function run() {
             const user = req.user
             const userEmail = req.query.email
             if (user.email !== userEmail) {
-                return res.send({ message: 'unauthorized'})
+                return res.send({ message: 'unauthorized' })
             }
             const query = { email: userEmail }
             const result = await customerProductsCollection.find(query).toArray()
