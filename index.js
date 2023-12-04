@@ -60,7 +60,7 @@ async function run() {
 
         const database = client.db("digitalDB");
         const shirtCollection = database.collection("shirt");
-        const clothCollection = database.collection("cloth");
+        const productsCollection = database.collection("Products");
         const customerProductsCollection = database.collection("customerProducts");
 
 
@@ -84,12 +84,12 @@ async function run() {
 
 
         // cloth related
-        app.get('/cloth', async (req, res) => {
+        app.get('/products', async (req, res) => {
 
             const page = Number(req.query.page)
             const limit = Number(req.query.limit)
 
-            const result = await clothCollection.find().skip(page * limit).limit(limit).toArray()
+            const result = await productsCollection.find().toArray()
             res.send(result)
         })
 
@@ -179,9 +179,7 @@ async function run() {
         // await client.close();
     }
 }
-run().catch(console.dir);
-
-
+run().catch(console.dir)
 
 
 app.listen(port, () => {
