@@ -5,10 +5,12 @@ const connectDB = require('./db/cannectDB')
 const useMiddleWere = require('./middleWers/middlewers')
 const port = process.env.PORT || 5000
 const getFeaturedProductsCon = require('./Routes/Products/getFeaturedProducts')
+const postNewsLatterCon = require('./Routes/NewsLatter/newsLatter')
 
 
 useMiddleWere(app)
 app.use(getFeaturedProductsCon)
+app.use(postNewsLatterCon)
 
 
 
