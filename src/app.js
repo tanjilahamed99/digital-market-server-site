@@ -16,7 +16,7 @@ app.use(postNewsLatterCon)
 
 
 app.get('/health', (req, res) => {
-    res.send('welcome to my styleByte server ')
+    res.send('welcome to my styleByte server.Thanks for coming here ')
 })
 
 app.all('*', (req, res, next) => {
