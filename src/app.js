@@ -6,11 +6,13 @@ const useMiddleWere = require('./middleWers/middlewers')
 const port = process.env.PORT || 5000
 const getFeaturedProductsCon = require('./Routes/Products/getFeaturedProducts')
 const postNewsLatterCon = require('./Routes/NewsLatter/newsLatter')
+const getProductsById = require('./Routes/Products/getProductsById')
 
 
 useMiddleWere(app)
 app.use(getFeaturedProductsCon)
 app.use(postNewsLatterCon)
+app.use(getProductsById)
 
 
 
